@@ -1,0 +1,20 @@
+export enum textParameters{
+    bcname,
+    thresholdtype,
+    areas,
+    minspeed,
+    maxspeed,
+    speedTestType,
+    missingUpdatesTime,
+    deviceSpeed,
+    deviceLatitude,
+    deviceLongitude,
+    deviceTrigger,
+    deviceState,
+    deviceName,
+    deviceFriendlyName,
+    networkDeviceID,
+    cellName,
+    throttlingEventType,
+    throttlingEventTypeLoc
+  }

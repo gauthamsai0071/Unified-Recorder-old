@@ -1,0 +1,43 @@
+<div class="msi-flex content mt-20">   
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>  
+    <div class="gridWidth">        
+    <div *ngIf="!showProgress">
+      <div class="button-group">
+        <button type="submit" class="msi-btn mt-20" [routerLink]="['../add']">
+          <msi-icon name="ic_add"> </msi-icon>
+           Add New Severity</button>
+      </div>
+      <div>
+      <table msi-data-table  id="severityListGrid"      
+            [rows]="severityList | paginate: { id: 'pageEvents', itemsPerPage: PageSize, currentPage: PageNumber, totalItems: rowCount }"  class="mt-20"> 
+            <ng-container msiColDef="Name" colType="text">
+              <ng-container *msiHeaderCellDef><div>Severity</div></ng-container>
+              <ng-container *msiCellDef="let row" class="textColWidth">{{row.Name}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="GroupName" colType="text">
+              <ng-container *msiHeaderCellDef><div>Group</div></ng-container>
+              <ng-container *msiCellDef="let row" class="textColWidth">{{row.GroupName}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="icon" colType="icon">
+              <ng-container *msiHeaderCellDef></ng-container>
+              <ng-container *msiCellDef="let row" class="imgColWidth">
+                <button class="msi-btn msi-btn-icon msi-btn-icon--active icon-width"  #tooltip="msiTooltip" msiTooltip="Edit" (click)="tooltip.hide()"
+                  [routerLink]="['../manage', row.Id]">
+                  <msi-icon name="ic_edit" ></msi-icon>
+                </button>
+              </ng-container>
+            </ng-container>            
+            <ng-container msiColDef="icon" colType="icon">
+              <ng-container *msiHeaderCellDef></ng-container>
+              <ng-container *msiCellDef="let row" >
+                <button class="msi-btn msi-btn-icon msi-btn-icon-remove" #tooltip="msiTooltip" msiTooltip="Delete" (click)="[tooltip.hide(),removeSeverityLevel(row.Id)]">
+                  <msi-icon name="ic_remove"></msi-icon>
+                </button>
+              </ng-container>
+            </ng-container>
+        </table>
+        <pagination-controls *ngIf="rowCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>  
+        </div>
+      </div> 
+    </div>   
+  </div>

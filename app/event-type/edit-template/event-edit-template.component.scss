@@ -1,0 +1,152 @@
+.content {    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+table tr.highlight {
+    background-color: #ffffff !important;
+    color: #000000cc;
+}
+
+.msi-btn-icon-remove{
+    color: #d0021bff;
+}
+
+.actiongrid{
+    min-width: 75% !important;
+}
+
+.content-header {  
+  flex-direction: column;       
+}
+
+.content-severity {  
+  flex: 0 0 38%;
+  flex-direction: column;
+  overflow: scroll;   
+}
+
+.content-action {  
+  width:60%;
+  flex-direction: column; 
+  overflow:scroll;      
+}
+
+.content-actiontype {  
+  width: 58%;  
+  float: right;
+  justify-content: center;  
+  border: 1px solid white;  
+  flex-direction: column;
+  border-radius: 15px;
+  padding-left: 5px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+  }  
+  
+  .form-group label {
+    flex: none;
+    display: block;
+    min-width: 125px;
+    height: 20px;  
+  }
+  .form-group label.right-inline {
+    text-align: right;  
+    padding-right: 8px;
+    padding-left: 10px;
+    width: auto;
+  }
+
+  .back-button {
+    padding: 5px 15px;
+    margin: 5px;
+    width: 15%;
+  }
+
+.msi-select{
+    height: 75%;
+}
+
+
+
+.validation-input-control{
+  width: 100%;
+}
+
+
+::ng-deep .msi-select-origin{  
+  height: 22px !important;    
+}
+
+::ng-deep .msi-select-origin .msi-select-arrow{
+  width: 18px !important;
+  height: 18px !important;
+  padding-top: 3.5%;    
+}
+
+  
+  .table-action{
+    width: 100%;
+  }
+
+  .table-severity{
+    width: 100%;
+  }
+
+  ::ng-deep .table-severity tr td:nth-child(1),  
+  ::ng-deep .table-severity tr th:nth-child(1){
+      width:45%;
+  }
+
+::ng-deep .table-severity tr td:nth-child(2),
+::ng-deep .table-severity tr th:nth-child(2){
+      width:35%;
+}
+::ng-deep .table-severity tr td:nth-child(3),  
+::ng-deep .table-severity tr th:nth-child(3){
+  width:20%;    
+}
+
+::ng-deep .table-action tr td:nth-child(1),  
+::ng-deep .table-action tr th:nth-child(1),
+::ng-deep .table-action tr td:nth-child(2),  
+::ng-deep .table-action tr th:nth-child(2){
+      width:35%;
+}
+
+::ng-deep .table-action tr td:nth-child(3),  
+::ng-deep .table-action tr th:nth-child(3){
+      width:15%;
+}
+
+.icon-btn{
+  padding: 5px 5px !important;
+  margin: 0px !important;
+  width: 40px;  
+}
+
+::ng-deep .ngx-pagination  a{
+  border:1px;
+  margin-left:0px;
+  margin:0px 5px !important;    
+  color: #ffffff !important;      
+  border-radius: 15px !important; 
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,.1) !important;
+  &:hover{
+      background:#2199e8 !important;
+  }
+}
+
+::ng-deep .ngx-pagination .current{
+  border-radius: 25px !important; 
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,.1) !important;
+}
+
+::ng-deep .ngx-pagination {
+    margin-top: .5rem;
+}

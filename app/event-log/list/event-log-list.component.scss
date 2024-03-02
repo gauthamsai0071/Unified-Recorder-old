@@ -1,0 +1,176 @@
+.content {
+    max-width: 90%;
+}
+.gridWidth{
+    width: 100%;
+    max-width: 90%; 
+    min-width: 36%;    
+    flex: 1 1;     
+    display: block ;  
+    padding-bottom: 5%; 
+}
+.width100Per
+{
+    width: 100%;
+}
+
+.pd-lt-5
+{
+    padding-left: 5px;
+}
+.width20Per
+{
+    width: 20% !important;
+}
+
+.justify-space
+{    
+    border: 1px solid white;  
+    border-radius: 15px;
+    padding: 15px;
+    width: 96%;
+}
+
+
+.timePickerClass, 
+::ng-deep .np-tp-component>.np-tp-overlay ,
+::ng-deep .np-tp-component>.np-tp-overlay .np-tp-select,
+::ng-deep .np-tp-component .np-tp-input-group .input,
+::ng-deep .np-tp-component .np-tp-input-group .np-tp-input
+// ::ng-deep .np-tp-component>.np-tp-overlay td 
+{
+color:white;
+//background-color:var(--background-level-3);
+background-color: #142737;
+}
+
+.item
+{
+    flex: 1 1 auto;
+    padding: 3px;
+}
+
+.container{
+    display: flex;     
+    flex-wrap: wrap ; 
+    justify-content:space-between;    
+    align-content:center;
+    padding-bottom: 5px;
+}
+
+.mar-top-10
+{
+    margin-top: 10px;
+}
+
+::ng-deep  .multiselect-dropdown .dropdown-btn
+  {
+      width: 86% !important;
+  }
+
+.tableCell
+{
+    display: table-cell;
+}
+
+.submitbutton
+{
+    float: left;
+    margin-right: 15px;;
+}
+
+
+.floatRight
+{
+    float: right;
+}
+
+
+.headerPosition
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.chips
+{
+    height: 34px !important;    
+}
+
+::ng-deep .chips >.msi-chips-container .new-chip-input
+{
+    height: 15px !important;
+}
+
+table {
+    display: block;
+    min-height: 400px;     
+}
+
+.msi-data-table{
+    width:100%;
+    column-width: auto;
+}
+
+.msi-btn-icon-remove{
+    color: #d0021bff;
+}
+
+
+ 
+  ::ng-deep .ngx-pagination  a{
+    border:1px;
+    margin-left:0px;
+    margin:0px 5px !important;    
+    color: #ffffff !important;      
+    border-radius: 15px !important; 
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,.1) !important;
+    &:hover{
+        background:#2199e8 !important;
+    }
+  }
+
+  ::ng-deep .ngx-pagination .current{
+    border-radius: 25px !important; 
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,.1) !important;
+  }
+
+  ::ng-deep .ngx-pagination {
+      margin-top: .5rem;
+  }
+
+  .msi-input{
+    width: 90%;
+    height: 65%;
+    border: 1px solid #adadad;
+    border-radius: 4px;
+  }
+
+  .msi-select{
+      height: 70%;
+      border: 1px solid #adadad;
+      border-radius: 4px;
+  }
+
+  ::ng-deep .msi-select-origin .msi-select-arrow{
+    width: 21px !important;
+    height: 21px !important;    
+  }
+  
+  .parametersTable  {
+    width:50% !important;
+    column-width: auto !important;
+}
+
+
+.msi-btn-icon-status{
+    color: #c3e47cff;
+}
+
+.msi-btn-icon-ack{
+    color: #099a49ff;
+}
+
+.msi-btn-icon-details{
+    color: #2199e8;
+}

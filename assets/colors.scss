@@ -1,0 +1,83 @@
+// Primary Cobalt Colors & Highlights
+$msi-ui-background-dark: #000912;
+$msi-ui-primary: #001526;
+$msi-ui-secondary: #142737;
+$msi-ui-secondary-80: rgba($msi-ui-secondary, .8);
+$msi-ui-mhx: #213f59;
+$msi-ui-widget: #10384e;
+$msi-ui-primary-highlight: #007aaa;
+$msi-ui-primary-highlight-90: rgba($msi-ui-primary-highlight, .9);
+$msi-ui-primary-highlight-60: rgba($msi-ui-primary-highlight, .6);
+$msi-ui-primary-highlight-50: rgba($msi-ui-primary-highlight, .5);
+$msi-ui-primary-highlight-30: rgba($msi-ui-primary-highlight, .3);
+$msi-ui-primary-highlight-20: rgba($msi-ui-primary-highlight, .2);
+$msi-ui-primary-highlight-hover: #1a87b2;
+$msi-ui-secondary-highlight: #28b1ec;
+$msi-ui-hover-highlight: #3db8ed;
+$msi-ui-alert: #d0021b;
+$msi-ui-alert-80: rgba($msi-ui-alert, .8);
+$msi-ui-alert-20: rgba($msi-ui-alert, .2);
+$msi-ui-alert-secondary: #ff4d4d;
+$msi-ui-available: #099a49;
+
+// Shades & Tints
+$msi-ui-primary-dark: #000;
+$msi-ui-primary-light: #fff;
+$msi-ui-primary-dark-80: rgba($msi-ui-primary-dark, .8);
+$msi-ui-primary-light-80: rgba($msi-ui-primary-light, .8);
+$msi-ui-primary-dark-70: rgba($msi-ui-primary-dark, .7);
+$msi-ui-primary-light-70: rgba($msi-ui-primary-light, .7);
+$msi-ui-primary-dark-60: rgba($msi-ui-primary-dark, .6);
+$msi-ui-primary-light-60: rgba($msi-ui-primary-light, .6);
+$msi-ui-primary-dark-50: rgba($msi-ui-primary-dark, .5);
+$msi-ui-primary-light-50: rgba($msi-ui-primary-light, .5);
+$msi-ui-primary-dark-40: rgba($msi-ui-primary-dark, .4);
+$msi-ui-primary-light-40: rgba($msi-ui-primary-light, .4);
+$msi-ui-primary-dark-30: rgba($msi-ui-primary-dark, .3);
+$msi-ui-primary-light-30: rgba($msi-ui-primary-light, .3);
+$msi-ui-primary-dark-20: rgba($msi-ui-primary-dark, .2);
+$msi-ui-primary-light-20: rgba($msi-ui-primary-light, .2);
+$msi-ui-primary-dark-10: rgba($msi-ui-primary-dark, .1);
+$msi-ui-primary-light-10: rgba($msi-ui-primary-light, .1);
+$msi-ui-primary-dark-05: rgba($msi-ui-primary-dark, .05);
+$msi-ui-primary-light-05: rgba($msi-ui-primary-light, .05);
+
+// Neutrals & Secondary Hues
+$msi-ui-neutral-dark: #4a4a4a;
+$msi-ui-neutral-light: #a6abaf;
+$msi-ui-neutral: #333a41;
+$msi-ui-neutral-medium: #ccc;
+$msi-ui-neutral-dark-70: rgba($msi-ui-neutral-dark, .7);
+$msi-ui-neutral-light-70: rgba($msi-ui-neutral-light, .7);
+$msi-ui-neutral-dark-40: rgba($msi-ui-neutral-dark, .4);
+$msi-ui-neutral-light-40: rgba($msi-ui-neutral-light, .4);
+$msi-ui-background-bright: #f5f6f7;
+$msi-ui-background-medium: #e0e0e0;
+
+// Neutral Blues
+$msi-ui-neutral-deep: #344252;
+$msi-ui-neutral-highlight: #4d657a;
+$msi-ui-neutral-secondary: #445160;
+
+// Specialized Colors (Specific & Restricted Use)
+$msi-ui-ptt-ok: #e4f2f6;
+$msi-ui-ptt-listen: #fcb400;
+$msi-ui-ptt-talk: #ec1c24;
+$msi-ui-ptt-dispatch: #00bfff;
+$msi-ui-emergency: #ff8400;
+$msi-ui-broadcast: #de4b15;
+$msi-ui-impact-green: #c3e47c;
+
+// Avatar Colors
+$msi-ui-accent-gold-01: #d68500;
+$msi-ui-accent-green-01: #4f4f12;
+$msi-ui-accent-green-02: #177828;
+$msi-ui-accent-green-03: #3c5419;
+$msi-ui-accent-purple-01: #35296f;
+$msi-ui-accent-purple-02: #662d91;
+$msi-ui-accent-brown-01: #6e4236;
+$msi-ui-accent-blue-01: #0063b0;
+$msi-ui-accent-blue-02: #37667c;
+
+// Misc
+$msi-btn-color: #0c547a;

@@ -1,0 +1,36 @@
+<msi-common-header *ngIf="authenticationService.isAuthenticated()"
+    [fullWidth]="true"
+    [responsive]="true"
+    [search]="false"
+    [overflowNotificationBadge]="false"
+    #header>
+  <msi-header-left-plugin-area
+      class="msi-common-header-left-plugin-area"
+      applicationName="UNS Web Location"     
+      applicationHomeUrl="#">
+      <div class="msi-common-header-plugin page-title">
+        <div class="link selected" *ngIf="pageHeader !== ''">{{pageHeader}}</div>        
+      </div>     
+  </msi-header-left-plugin-area>
+ 
+  <msi-header-right-plugin-area class="msi-common-header-right-plugin-area">    
+    <div class="msi-common-header-plugin">
+      <msi-session-manager [userNameSurname]="authenticationService.getUserName()" class="msi-session-manager">
+        <a class="msi-common-header-dropdown-item sub-link user-action"
+        href="https://www.motorolasolutions.com/en_us/about/terms-use.html" target="_blank">Terms &amp; Conditions</a>
+        <a class="msi-common-header-dropdown-item sub-link user-action"
+        href="https://www.motorolasolutions.com/en_us/about/privacy-policy.html#highlights" target="_blank">Privacy Policy</a>
+        <a class="msi-common-header-dropdown-item sub-link user-action" href="javascript:void(0)" (click)="signOut()">Logout</a>
+      </msi-session-manager>
+    </div>  
+  </msi-header-right-plugin-area>
+</msi-common-header>
+<div class="wrapper">
+    <div class="menu" *ngIf="authenticationService.isAuthenticated()">
+      <navigation-bar></navigation-bar>
+    </div> 
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+  

@@ -1,0 +1,108 @@
+@import 'colors';
+
+// Font family
+$default-font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+$msi-ui-font-family: $default-font-family;
+
+// Font weight
+$font-weight-bold: 700;
+$font-weight-normal: 400;
+
+// Font size
+$default-font-size: 16px;
+$msi-ui-primary-font-size: $default-font-size;
+$body-1-font-size: 1rem;
+$body-2-font-size: .875rem;
+$h1-font-size: 2rem;
+$h2-font-size: 1.75rem;
+$h3-font-size: 1.5rem;
+$h4-font-size: 1.25rem;
+$h5-font-size: 1rem;
+$h6-font-size: .75rem;
+$h7-font-size: $body-2-font-size;
+$subtitle-font-size: .75rem;
+$caption-font-size: .625rem;
+
+// Spacing
+$msi-ui-spacing-input: 5px;
+$msi-ui-spacing-xxxs: 2px;
+$msi-ui-spacing-xxs: 4px;
+$msi-ui-spacing-xs: 6px;
+$msi-ui-spacing-s: 12px;
+$msi-ui-spacing-sm: $msi-ui-spacing-s; // DEPRECATED
+$msi-ui-spacing-m: 18px;
+$msi-ui-spacing-l: 24px;
+$msi-ui-spacing-xl: 36px;
+$msi-ui-spacing-xxl: 48px;
+
+// Corner radius
+$msi-ui-corner-radius-sm: $msi-ui-spacing-xxxs;
+$msi-ui-corner-radius-md: $msi-ui-spacing-xxs;
+$msi-ui-corner-radius-lg: $msi-ui-spacing-xs;
+
+// Line height
+$default-line-height: 1.25;
+
+// Timing - must match animation-config.ts
+$msi-timing-t1: 500ms;
+$msi-timing-t2: 300ms;
+$msi-timing-t3: 250ms;
+$msi-timing-t4: 200ms;
+$msi-timing-t5: 100ms;
+$msi-timing-t6: 0ms;
+
+// Easing - must match animation-config.ts
+$msi-ease-in: cubic-bezier(.895, .03, .685, .22);
+$msi-ease-out: cubic-bezier(.165, .84, .44, 1);
+$msi-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+
+// Other
+$msi-ui-border-radius: 2px;
+$msi-ui-transition-time: $msi-timing-t5;
+$msi-ui-disabled-opacity: .4;
+$msi-ui-hover-opacity: .9;
+$msi-ui-hover-gradient: linear-gradient($msi-ui-primary-light-10, $msi-ui-primary-light-10);
+
+// Scrollbars
+$msi-ui-scrollbar-width: 12px;
+$msi-ui-scrollbar-radius: $msi-ui-scrollbar-width / 2;
+
+// Tables
+$msi-ui-table-font-family: $default-font-family;
+$msi-ui-table-font-size: $default-font-size;
+$msi-ui-table-ordered-icon: url('data:image/svg+xml;charset=UTF-8,<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1675 832q0 53-37 90l-651 652q-39 37-91 37-53 0-90-37l-651-652q-38-36-38-90 0-53 38-91l74-75q39-37 91-37 53 0 90 37l294 294v-704q0-52 38-90t90-38h128q52 0 90 38t38 90v704l294-294q37-37 90-37 52 0 91 37l75 75q37 39 37 91z" fill="#ccc2c7"/></svg>');
+$msi-ui-table-cell-padding: 5px 13px;
+
+// Buttons
+$msi-ui-button-padding: 0 12px;
+$msi-ui-button-font-size: $body-2-font-size;
+$msi-ui-button-min-width: 60px;
+$msi-ui-button-height: 32px;
+$msi-ui-button-flat-height: 24px;
+
+// Forms
+$msi-ui-form-padding: 12px;
+
+// Input
+$msi-ui-input-margin-top: 3px;
+$msi-ui-input-margin-bottom: 12px;
+$msi-ui-input-padding: 0 6px;
+$msi-ui-input-padding-big: 0 12px;
+$msi-ui-form-border-width: 1px;
+$msi-ui-input-border: $msi-ui-form-border-width $msi-ui-primary-light-10 solid;
+$msi-ui-input-min-height: 24px;
+
+// Select
+$msi-select-item-height: 40px;
+
+// Label
+$msi-ui-label-font-size: 13px;
+$msi-ui-label-margin-top: 12px;
+
+// Z-indexes
+$msi-z-index-level-1: 99999;
+$msi-z-index-level-2: 10000;
+$msi-z-index-level-3: 1000;
+$msi-z-index-level-4: 100;
+$msi-z-index-level-5: 10;
+$msi-z-index-level-6: 1

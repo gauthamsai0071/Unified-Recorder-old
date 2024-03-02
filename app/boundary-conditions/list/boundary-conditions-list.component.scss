@@ -1,0 +1,95 @@
+.gridWidth{
+    width: 100%;
+    max-width: 99%; 
+    min-width: 36%;
+    flex: 1 1; 
+    display: block ;   
+}
+
+.container{
+    display: flex;     
+    flex-wrap: wrap ; 
+    justify-content:space-between;    
+    align-content:center;
+    padding-bottom: 5px;
+}
+
+.item
+{
+    flex: 1 1 auto;
+    padding: 3px;
+}
+
+.submitbutton
+{
+    float: left;
+    margin-right: 20px;;
+}
+
+
+.floatRight
+{
+    float: right;
+}
+
+.msi-input{
+    width: 36%;
+    height: 65%;
+    border: 1px solid #adadad;
+    border-radius: 4px;
+  }
+
+  ::ng-deep  .multiselect-dropdown .dropdown-btn
+  {
+      width: 270px !important;
+  }
+
+.tableWidth{    
+    max-width: 100%; 
+    min-width: 36%;
+    flex: 1 1; 
+    display: block ;   
+}
+
+
+table {
+    display: block;
+    min-height: 500px;
+}
+
+.msi-btn-icon-remove{
+    color: #d0021bff;
+}
+
+.justify-space
+{    
+    border: 1px solid white;  
+    border-radius: 15px;
+    padding: 15px;
+    width: 96%;
+}
+
+.item
+{
+    flex: 1 1 auto;
+    padding: 3px;
+}
+
+.container{
+    display: flex;     
+    flex-wrap: wrap ; 
+    justify-content:space-between;    
+    align-content:center;
+    padding-bottom: 5px;
+}
+
+.chips
+{
+    height: 34px !important; 
+    width: 95%;   
+}
+
+::ng-deep .chips >.msi-chips-container .new-chip-input
+{
+    height: 15px !important;
+}

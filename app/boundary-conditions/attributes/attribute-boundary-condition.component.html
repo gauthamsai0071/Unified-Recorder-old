@@ -1,0 +1,123 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>      
+    <form [formGroup]="boundaryConditionForm" *ngIf="!showProgress && boundaryConditionForm !== null" (ngSubmit)="save()">
+        <div class="content">
+            <div class="content">
+                <div class="form-group mt-10">
+                    <label>Name</label>
+                    <input class="msi-input input-control" type="text" id="bcName" formControlName="bcName" readonly>
+                </div>
+            </div>
+            <div class="content">
+                <div class="form-group mt-10">
+                    <label>Threshold</label>
+                    <input class="msi-input input-control" type="text" id="thresholdTypes" formControlName="thresholdTypes" readonly>                    
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10">
+                    <label>Event Type</label>
+                    <input class="msi-input input-control" type="text" id="eventType" formControlName="eventType" readonly>
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10">
+                    <label>Severity</label>
+                    <input class="msi-input input-control" type="text" id="severities" formControlName="severities" readonly>
+                </div>                                   
+            </div>
+            <!-- <div class="content">
+                <div class="form-group mt-10">
+                    <label>Attributes</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributes"
+                    (onSelect)="onItemSelect($event)" 
+                    formControlName="attributeMapping">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div> -->
+            <div class="content">
+                <div class="form-group mt-10" *ngIf="thresholdId !== '7' && thresholdId === '3'">
+                    <label>Triggers</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributesData.triggers"                   
+                    formControlName="triggers">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>
+            <div class="content" *ngIf="thresholdId !== '7' && thresholdId === '4'">
+                <div class="form-group mt-10">
+                    <label>Device State</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributesData.deviceStates"                    
+                    formControlName="deviceStates">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10" *ngIf="thresholdId !== '7'">
+                    <label>Validity Period</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributesData.timePeriod"                   
+                    formControlName="timePeriod">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10" *ngIf="thresholdId !== '7' && thresholdId !== '5'">
+                    <label>Areas</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributesData.areas"                    
+                    formControlName="areas">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10" *ngIf="thresholdId !== '7'">
+                    <label>Groups</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="groups"                   
+                    formControlName="groups">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>
+            <div class="content">
+                <div class="form-group mt-10" *ngIf="thresholdId !== '7'">
+                    <label>Device</label>
+                    <ng-multiselect-dropdown
+                    class="multiselectDropdown multiselectDrop"
+                    [settings]="dropdownSettings"
+                    [placeholder]="'Select'"
+                    [data]="attributesData.devices"                    
+                    formControlName="devices">
+                    </ng-multiselect-dropdown>
+                </div>                                   
+            </div>            
+            <div class="content mt-10">
+                <div class="form-group">
+                    <button type="button" class="msi-btn back-button" [routerLink]="['/boundary-conditions']">Back</button> 
+                    <button type="submit" class="msi-btn back-button">Save</button>          
+                    <button type="button" class="msi-btn back-button" [routerLink]="['../../manage', id]">Edit</button>
+                </div>                  
+            </div>
+        </div> 
+    </form>
+</div>

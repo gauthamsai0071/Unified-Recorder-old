@@ -1,0 +1,34 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>
+    <div class="gridWidth">
+        <div *ngIf="!showProgress">
+            <form [formGroup]="purgeDetailsForm" *ngIf="!showProgress && purgeDetailsForm !== null">
+              <div class="content">
+                <div class= "form-group mt-20">
+                      <label class="mr-20 mt-10">Object Type</label>
+                      <msi-select class="option-select" placeholder="Select value" id="objTyps" formControlName="objTyps" (change)="onOptionSelected($event)">
+                          <msi-select-option *ngFor="let obj of objTypes" [value]="obj.value">{{obj.type}}</msi-select-option>
+                      </msi-select>
+                  </div>
+                </div>
+                <table class="mt-10" msi-table id="purgeGrid" *ngIf="rowCount > 0">
+                    <thead>
+                      <tr>
+                        <th msi-table-header>Name</th>                       
+                        <th msi-table-header></th>                                   
+                      </tr>
+                    </thead>      
+                    <tbody>
+                      <tr *ngFor="let row of purgeTotalRecords | paginate: { id: 'pageEvents', itemsPerPage: 10, currentPage: PageNumber, totalItems: rowCount }">
+                        <td>{{row.Name}}</td>                                   
+                        <td>
+                          <msi-icon name="ic_remove" class ="msi-btn-icon-remove" msiTooltip="Delete" [hideDelay]="100" (click)="remove(row.Id)"></msi-icon>
+                        </td>              
+                      </tr>  
+                    </tbody>
+                  </table>
+                  <pagination-controls *ngIf="rowCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>
+            </form>
+        </div>
+    </div>
+</div>

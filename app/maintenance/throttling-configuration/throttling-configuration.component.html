@@ -1,0 +1,55 @@
+<div class="msi-flex content mt-20">       
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner> 
+    <form [formGroup]="throttlingForm" (ngSubmit)="update()" *ngIf="!showProgress && throttlingForm !== null">
+        <div class= "form-group">            
+            <msi-checkbox-group>
+                <msi-checkbox #chkInterval id="chkInterval" [formControl]="throttlingForm.controls['chkInterval']" (click)="isEnableInterval()">Interval</msi-checkbox>
+            </msi-checkbox-group>
+        </div> 
+        <div class= "form-group ml-15" *ngIf="showInterval">            
+            <input id="rbAbsolute" type="radio" value="Absolute" formControlName="rbInterval">
+            <label for="rbAbsolute">Absolute</label>
+            <app-input-control [controlName]="'absoluteVal'" [formResetting]="formResetting">
+                <msi-select class="event-type group-select input-control" id="absoluteVal" placeholder="Select value" formControlName="absoluteVal">
+                    <msi-select-option *ngFor="let thr of throttling.IntervalAbsolute" [value]="thr.Text">{{thr.Value}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+        </div>
+        <div class= "form-group ml-15" *ngIf="showInterval">            
+            <input id="rbRelative" type="radio" value="Relative" formControlName="rbInterval">
+            <label for="rbRelative">Relative[Multipler]</label>
+            <app-input-control [controlName]="'relativeVal'" [formResetting]="formResetting">
+                <msi-select class="event-type group-select input-control" id="relativeVal" placeholder="Select value" formControlName="relativeVal">
+                    <msi-select-option *ngFor="let thr of throttling.IntervalRelative" [value]="thr.Text">{{thr.Value}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+        </div>
+        <div class= "form-group">            
+            <msi-checkbox-group>
+                <msi-checkbox #chkDistance id="chkDistance" [formControl]="throttlingForm.controls['chkDistance']" (click)="isEnableDistance()">Distance</msi-checkbox>
+            </msi-checkbox-group>
+        </div>
+        <div class= "form-group ml-15" *ngIf="showDistance">
+            <input id="rbMinimum" type="radio" value="Minimum" formControlName="rbDistance">
+            <label for="rbMinimum">Minimum[km]</label>
+            <app-input-control [controlName]="'minimumVal'" [formResetting]="formResetting">
+                <msi-select class="event-type group-select input-control" id="minimumVal" placeholder="Select value" formControlName="minimumVal">
+                    <msi-select-option *ngFor="let thr of throttling.DistanceMinimum" [value]="thr.Text">{{thr.Value}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+        </div>
+        <div class= "form-group ml-15" *ngIf="showDistance">            
+            <input id="rbMaximum" type="radio" value="Maximum" formControlName="rbDistance">
+            <label for="rbMaximum">Maximum[Multipler]</label>
+            <app-input-control [controlName]="'maximumVal'" [formResetting]="formResetting">
+                <msi-select class="event-type group-select input-control" id="maximumVal" placeholder="Select value" formControlName="maximumVal">
+                    <msi-select-option *ngFor="let thr of throttling.DistanceMaximum" [value]="thr.Text">{{thr.Value}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="msi-btn mt-20">Update</button>
+            <button type="button" class="msi-btn mt-20 ml-10" (click)="reset()">Cancel</button>
+        </div>        
+    </form>        
+</div>

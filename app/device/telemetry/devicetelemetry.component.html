@@ -1,0 +1,115 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>  
+      <div class="gridWidth">            
+      <div *ngIf="!showProgress">    
+        <form [formGroup]="telemetryForm" (ngSubmit)="onSearchClick()" *ngIf="!showProgress && telemetryForm !== null">        
+          <div class="justify-space">
+            <div class="container">
+              <div class="item">     
+                  <!-- Filters     -->          
+                <msi-select    formControlName="dateRange" >
+                    <msi-select-option *ngFor="let periods of locFilters.Options1" [value]="periods.Key">{{periods.Value}}</msi-select-option>
+                </msi-select>
+              </div>              
+              <div class="item" >   
+                <msi-select  formControlName="filterId" >
+                    <msi-select-option (onChange)="filterChange()" *ngFor="let id of locFilters.Options2" [value]="id.Key">{{id.Value}}</msi-select-option>
+                </msi-select>
+              </div>
+              <div class="item" *ngIf="this.telemetryForm.controls['filterId'].value!=2"> 
+                <input                
+                id="filterValue"
+                formControlName="filterValue"
+                [msiAutocomplete]="auto"
+                class="msi-input"
+                autocomplete="off"
+                placeholder="Try typing ...">
+                <msi-autocomplete #auto>
+                  <!-- <div *ngIf="filteredOptions !== null && filteredOptions.length === 0" class="msi-autocomplete-error-message">
+                    No matching entries
+                  </div> -->
+                  <msi-autocomplete-option
+                    *ngFor="let option of filteredOptions" [value]="option.Value" 
+                    (selectionChange)="telemetryForm.controls.filterValue.setValue(option.Value)">
+                    {{ option.Value }}                      
+                  </msi-autocomplete-option >
+                </msi-autocomplete> 
+              </div>                               
+              <div class="item" *ngIf="this.telemetryForm.controls['filterId'].value==2">
+                <msi-select  formControlName="filterValue">
+                  <msi-select-option *ngFor="let list of locFilters.Options3;let ind=index;" [value]="ind==0?list.Key:list.Value">{{list.Value}}</msi-select-option>
+                </msi-select>
+              </div>
+            <div class="btn-inner-section">          
+              <button type="submit" name="submit" class="msi-btn msi-btn-large" >
+                Submit
+              </button>                            
+            </div>              
+            <div class="break"></div>              
+              <div class="item" style="width:1% !important;" *ngIf="this.telemetryForm.controls['dateRange'].value==1">
+                <label class="mr-20">Start Date</label><br>
+                <msi-date-picker-control 
+                dateFormat="MM/DD/YYYY" 
+                [dropdown]="true" 
+                formControlName="StartDate" 
+                [maxDate]="fromMaxDate"
+                [(ngModel)]="fromMinDate"
+                ></msi-date-picker-control>
+                <app-imw-time-picker class="pd-lt-5" formControlName="FromTime" ></app-imw-time-picker>                
+              </div>
+              <div class="item" *ngIf="this.telemetryForm.controls['dateRange'].value==1">
+                <label class="mr-20">End Date</label><br>            
+                <msi-date-picker-control dateFormat="MM/DD/YYYY" 
+                [maxDate]="maxDate" 
+                [dropdown]="true" 
+                [(ngModel)]="fromMaxDate" 
+                [minDate]="fromMinDate"
+                formControlName="EndDate" ></msi-date-picker-control>                
+                <app-imw-time-picker  class="pd-lt-5" formControlName="ToTime" #ToTime ></app-imw-time-picker>                                 
+            </div>
+            </div> 
+          </div>
+      </form>                
+      <table msi-data-table  id="telemetryGrid"    
+            [rows]="telemetryRows | paginate: { id: 'pageEvents', itemsPerPage: telemetryFilters.pageSize, currentPage: telemetryFilters.pageNumber, totalItems: totalCount }"  class="mt-20" filterable="true" *ngIf='totalCount > 0'> 
+            <ng-container msiColDef="Device" colType="text"    >
+              <ng-container *msiHeaderCellDef><div>Device</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Device}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="DeviceId" colType="text"   >
+              <ng-container *msiHeaderCellDef><div>Network Device Identifier</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.NetworkDeviceIdentifier}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Sensor" colType="text"   >
+              <ng-container *msiHeaderCellDef><div>Sensor</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.SensorType}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="SensorId" colType="text"   >
+              <ng-container *msiHeaderCellDef><div>Sensor Identifier</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.SensorId}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="SensorValue" colType="text"   >
+              <ng-container *msiHeaderCellDef><div>Sensor Value</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.SensorValue}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="UpdateTime" colType="Date"  >
+              <ng-container *msiHeaderCellDef><div>Gps Time</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.UpdateTime | date:"M/d/yy h:mm:ss a" }}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="GpsProtocolName" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Resource Group</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.GpsProtocolName}}</ng-container>
+            </ng-container>               
+            <ng-container msiColDef="DeviceId"  nowrap colType="Location" *ngIf="this.telemetryForm.controls['dateRange'].value==0">
+              <ng-container *msiHeaderCellDef><div>Location</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >
+                <button class="msi-btn msi-btn-large" [routerLink]="['/devices/locationInfo', row.DeviceId]">
+                  Location
+              </button>
+              </ng-container>              
+            </ng-container>
+      </table>
+      <pagination-controls *ngIf="totalCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>      
+    </div>
+  </div>
+</div>  

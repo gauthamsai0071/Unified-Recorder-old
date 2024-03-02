@@ -1,0 +1,141 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>  
+      <div class="gridWidth">            
+      <div *ngIf="!showProgress">    
+        <form [formGroup]="locationForm" (ngSubmit)="onSearchClick()" *ngIf="!showProgress && locationForm !== null">        
+          <div class="justify-space">        
+            <div class="container">
+                <div class="item">     
+                    <!-- Filters     -->          
+                  <msi-select    formControlName="dateRange" >
+                      <msi-select-option *ngFor="let periods of locFilters.Options1" [value]="periods.Key">{{periods.Value}}</msi-select-option>
+                  </msi-select>
+                </div>
+                <div class="item" >   
+                  <msi-select  formControlName="filterId" >
+                      <msi-select-option (onChange)="filterChange()" *ngFor="let id of locFilters.Options2" [value]="id.Key">{{id.Value}}</msi-select-option>
+                  </msi-select>
+                </div>
+                <div class="item" *ngIf="this.locationForm.controls['filterId'].value!=2"> 
+                  <input
+                  #chargeInput
+                  id="chargesInput"
+                  formControlName="deviceValue"
+                  [msiAutocomplete]="auto"
+                  class="msi-input"
+                  autocomplete="off"
+                  placeholder="Try typing ...">
+                  <msi-autocomplete #auto>
+                    <!-- <div *ngIf="filteredOptions !== null && filteredOptions.length === 0" class="msi-autocomplete-error-message">
+                      No matching entries
+                    </div> -->
+                    <msi-autocomplete-option
+                      *ngFor="let option of filteredOptions" [value]="option.Value" 
+                      (selectionChange)="locationForm.controls.deviceValue.setValue(option.Value)">
+                      {{ option.Value }}                      
+                    </msi-autocomplete-option >
+                  </msi-autocomplete> 
+                </div>                              
+                <div class="btn-inner-section">          
+                  <button type="submit" name="submit" class="msi-btn msi-btn-large" >
+                    Submit
+                  </button>                            
+                </div>
+                <div class="btn-inner-section" style="Padding-Left:5px;">          
+                  <button type="button" name="Export" (click)="onExportClick()" class="msi-btn msi-btn-large" >
+                    Export
+                  </button>                            
+                </div>
+              <div class="break"></div>              
+                <div class="item" style="width:1% !important;" *ngIf="this.locationForm.controls['dateRange'].value==1">
+                  <label class="mr-20">Start Date</label><br>
+                  <msi-date-picker-control 
+                  dateFormat="MM/DD/YYYY" 
+                  [dropdown]="true" 
+                  formControlName="StartDate" 
+                  [maxDate]="fromMaxDate"
+                  [(ngModel)]="fromMinDate"
+                  ></msi-date-picker-control>
+                  <app-imw-time-picker class="pd-lt-5" formControlName="FromTime" ></app-imw-time-picker>                
+                </div>
+                <div class="item" *ngIf="this.locationForm.controls['dateRange'].value==1">
+                  <label class="mr-20">End Date</label><br>            
+                  <msi-date-picker-control dateFormat="MM/DD/YYYY" 
+                  [maxDate]="maxDate" 
+                  [dropdown]="true" 
+                  [(ngModel)]="fromMaxDate" 
+                  [minDate]="fromMinDate"
+                  formControlName="EndDate" ></msi-date-picker-control>                
+                  <app-imw-time-picker  class="pd-lt-5" formControlName="ToTime" #ToTime ></app-imw-time-picker>                                 
+              </div>
+            </div>
+          </div>
+      </form>                
+      <table msi-data-table  id="locationGrid"   *ngIf="locFilters.RowCount > 0"            
+            [rows]="locationRows | paginate: { id: 'pageEvents', itemsPerPage: locFilters.PageSize, currentPage: locFilters.PageNumber, totalItems: locFilters.RowCount }"  class="mt-20" filterable="true"> 
+            <ng-container msiColDef="Device" colType="text"    >
+              <ng-container *msiHeaderCellDef><div>Device</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Device}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="DeviceId" colType="text"   >
+              <ng-container *msiHeaderCellDef><div>Device Identifier</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.NetworkDeviceIdentifier}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="UpdateTime" colType="Date"  >
+              <ng-container *msiHeaderCellDef><div>UpdateTime</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.UpdateTime | date:"M/d/yy h:mm:ss a" }}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="GpsTime" colType="Date"  >
+              <ng-container *msiHeaderCellDef><div>GpsTime</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.GpsTime | date:"M/d/yy h:mm:ss a" }}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="LatTrigger" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Latest Trigger</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.LatTrigger}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="DeviceStat" colType="text" *ngIf="this.locationForm.controls['dateRange'].value==0"  >
+              <ng-container *msiHeaderCellDef><div>Device State</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.DeviceStat}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Lat" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Latitude</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Lat}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Long" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Longitude</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Long}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Alt" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Altitude</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Alt}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Direction" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Direction</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Direction}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="Speed" colType="text">
+              <ng-container *msiHeaderCellDef><div>Speed</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Speed}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="AgeBit" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Age Bit</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.AgeBit}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="ResourceGroupName" colType="text"  >
+              <ng-container *msiHeaderCellDef><div>Resource Group Name</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.ResourceGroupName}}</ng-container>
+            </ng-container>
+            <ng-container msiColDef="DeviceId"  nowrap colType="Telemetry" *ngIf="this.locationForm.controls['dateRange'].value==0">
+              <ng-container *msiHeaderCellDef><div>Telemetry</div></ng-container>
+              <ng-container *msiCellDef="let row"  class="textColWidth" >
+                <button class="msi-btn msi-btn-large" [routerLink]="['/devices/telemetryInfo', row.DeviceId]">
+                  Telemetry
+              </button>
+              </ng-container>              
+            </ng-container>
+      </table>   
+      <pagination-controls *ngIf="locFilters.RowCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>   
+    </div>
+  </div>
+</div>     
+  

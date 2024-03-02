@@ -1,0 +1,88 @@
+<div class="content">
+  <div class="content-severity mt-10">
+    <button type="button" class="msi-btn mt-20 back-button" [routerLink]="['/event-types']">Back</button> 
+  </div> 
+  <div class="content-header ml-5 mt-20">
+    <h4 class="mt-20">Template Properties: {{lblevent}} </h4>
+  </div> 
+</div>
+<div class="content">
+  <msi-spinner size="large" class="spinner header-text" *ngIf="showProgress"></msi-spinner>
+  <div class="content-severity ml-5 mt-20" *ngIf="!showProgress">
+    <div class="form-group">
+      <h5>Severity Levels</h5> 
+    </div>
+    <table class="mt-10 table-severity" msi-table id="eventseveritylevels">
+      <thead>
+        <tr>
+          <th msi-table-header>Severity</th>
+          <th msi-table-header>Group</th>              
+          <th msi-table-header></th>              
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of severityList | paginate: { id: 'severityPageEvents', itemsPerPage: PageSize, currentPage: severityPageNumber, totalItems: severityRowCount }" (click)="selectedSeverityRow(row)"
+          [ngClass] = "{'highlight' : row.Name == selectedName}">
+          <td>{{row.Name}}</td>
+          <td>{{row.GroupName}}</td>              
+          <td (click)="$event.stopPropagation();">
+            <msi-icon class="msi-btn-icon-remove" name="ic_remove" #tooltip="msiTooltip" msiTooltip="Delete" (click)="[tooltip.hide(), removeSeverityfromTemplate(row.Id)]"></msi-icon>
+          </td>              
+        </tr>
+        <tr>
+          <td colspan="2">
+              <msi-select class="severity-select" id="severityId" #severitySelect>
+                  <msi-select-option *ngFor="let severity of severityLevels" [value]="severity.Id">{{severity.Name}}</msi-select-option>
+              </msi-select>
+          </td>                       
+          <td>
+            <msi-icon name="ic_add"  #tooltip="msiTooltip" msiTooltip="Add Template" (click)="[tooltip.hide(), addSeverityfromTemplate(severitySelect.value)]"></msi-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls *ngIf="severityRowCount > 0" (pageChange)="getSeverityPage($event)" id="severityPageEvents"></pagination-controls>    
+  </div>
+  <div class="content-action ml-5 mt-20" *ngIf="hideAction">
+    <div class="form-group">
+      <h5>Actions</h5>
+    </div>
+    <form [formGroup]="actionForm" *ngIf="actionForm !== null"> 
+      <table class="mt-10 table-action" msi-table id="actionsGrid" *ngIf="hideAction">
+        <thead>
+          <tr>
+            <th msi-table-header>Name</th>
+            <th msi-table-header>Type</th>
+            <th msi-table-header>Group</th>
+            <th msi-table-header></th>
+            <th  msi-table-header></th>              
+          </tr>
+        </thead>      
+        <tbody>
+          <tr *ngFor="let row of actionList | paginate: { id: 'actionPageEvents', itemsPerPage: PageSize, currentPage: actionPageNumber, totalItems: actionRowCount }" (click)="selectedActionRow(row)"
+            [ngClass] = "{'highlight' : row.Name == selectedActionName}">
+            <td>{{row.Name}}</td>
+            <td>{{row.ActionType}}</td>
+            <td>{{row.GroupName}}</td>            
+            <td (click)="$event.stopPropagation();">
+              <msi-icon class="msi-btn-icon-remove" name="ic_remove" #tooltip="msiTooltip" msiTooltip="Delete" (click)="[tooltip.hide(), removeAction(row.Id)]"></msi-icon>
+            </td>              
+          </tr>
+          <tr>   
+            <td colspan="4">
+                <msi-select class="severity-select" id="actionTypes" formControlName="actionTypes" placeholder="Select action type" (change)="onOptionSelected($event.type)">
+                    <msi-select-option *ngFor="let items of actionTypes" [value]="items">{{items.type}}</msi-select-option>
+                </msi-select>
+            </td>            
+          </tr>          
+        </tbody>
+      </table>
+      <pagination-controls *ngIf="actionRowCount > 0" (pageChange)="getActionPage($event)" id="actionPageEvents"></pagination-controls>
+    </form>
+  </div>
+  <div class="content-severity ml-5 mt-20">
+  </div>
+  <div class="content-actiontype mt-20 mr-30" *ngIf="hideActionType && actionSelected !== null">       
+    <app-action-type [actionType]="actionSelected" (saveAction)='saveAction($event)'></app-action-type>
+  </div>
+</div>

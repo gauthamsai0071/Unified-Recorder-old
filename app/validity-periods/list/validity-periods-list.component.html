@@ -1,0 +1,54 @@
+<div class="msi-flex content mt-20">   
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>  
+    <div class="gridWidth">        
+        <div *ngIf="!showProgress">
+            <div class="button-group">
+                <button type="submit" class="msi-btn mt-20" [routerLink]="['../add']">
+                Add New Validity Period</button>
+            </div>
+            <div class="tableWidth">
+                <table msi-data-table  id="validityPeriodGrid"      
+                        [rows]="validityPeriodList | paginate: { id: 'pageEvents', itemsPerPage: PageSize, currentPage: PageNumber, totalItems: rowCount }"  class="mt-20"> 
+                        <ng-container msiColDef="Name" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Name</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.Name}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="Description" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Description</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.Description}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="GroupName" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Group</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.GroupName}}</ng-container>
+                        </ng-container>                        
+
+                        <ng-container msiColDef="ValidFrom" colType="text">
+                            <ng-container *msiHeaderCellDef><div>ValidFrom</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ValidFrom}}</ng-container>
+                        </ng-container>
+                        
+                        <ng-container msiColDef="ValidTo" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Valid To</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ValidTo}}</ng-container>
+                        </ng-container>
+                        <ng-container msiColDef="icon" colType="icon">
+                            <ng-container *msiHeaderCellDef></ng-container>
+                            <ng-container *msiCellDef="let row" class="imgColWidth"> 
+                                <msi-icon name="ic_edit" class="msi-btn-icon--active" #tooltip="msiTooltip" msiTooltip="Edit" (click)="tooltip.hide()"
+                                [routerLink]="['../manage', row.Id]"></msi-icon>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container msiColDef="icon" colType="icon">
+                            <ng-container *msiHeaderCellDef></ng-container>
+                            <ng-container *msiCellDef="let row">
+                                <msi-icon name="ic_remove" class="msi-btn-icon-remove" #tooltip="msiTooltip" msiTooltip="Delete" (click)="[tooltip.hide(),removeValidityPeriods(row.Id)]"></msi-icon>
+                            </ng-container>
+                        </ng-container>
+                </table>
+                <pagination-controls *ngIf="rowCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>  
+            </div>
+        </div> 
+    </div>   
+  </div>

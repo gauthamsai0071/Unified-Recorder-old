@@ -1,0 +1,250 @@
+@import '../assets/variables.scss';
+@import '../assets/colors.scss';
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: $default-font-family;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+  background: #fff;
+  transition: background-color $msi-timing-t1 $msi-ease-in;
+
+  .dark & {
+    background: var(--background-primary);
+  }
+}
+
+//demo styles
+h2,
+h3 {
+  padding: 0 20px;
+}
+
+.library-last-section {
+  p {
+    padding: 0 20px;
+  }
+}
+
+.splash {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  vertical-align: middle;
+
+  background-image: url('/assets/splash-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .middle-wrapper {
+    position: absolute;
+    top: 35vh;
+    left: 50%;
+    margin-top: -155px;
+    margin-left: -83px;
+  }
+
+  h1 {
+    display: block;
+    margin: 30px 0 0;
+    font-size: 120px;
+    line-height: 100px;
+  }
+
+  .msi-logo {
+    padding: 20px 0 20px 20px;
+    margin-left: 80px;
+    border-left: 5px solid #fff;
+  }
+
+  .title-wrapper {
+    display: inline-block;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    margin-left: -620px;
+    color: #fff;
+    border-right: 5px solid #fff;
+  }
+
+  .subtitle {
+    display: block;
+    float: right;
+    font-size: 25px;
+  }
+
+  .down-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 64px;
+    height: 20vh;
+    margin-left: -32px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .down-arrow {
+    position: absolute;
+    top: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+    cursor: pointer;
+    transition: transform $msi-timing-t2 $msi-ease-in-out;
+
+    &:hover {
+      transform: translate(0, 10px);
+    }
+  }
+
+  .logo-wrapper {
+    display: block;
+    width: 165px;
+    margin: 20px 0;
+    transition: transform $msi-timing-t2 $msi-ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .logo {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+
+    // TODO simplify this nonsense
+    $animation-name: spin;
+    $animation-duration: 32000ms;
+    $animation-iteration-count: infinite;
+    $animation-timing-function: linear;
+    animation-name: $animation-name;
+    animation-duration: $animation-duration;
+    animation-timing-function: $animation-timing-function;
+    animation-iteration-count: $animation-iteration-count;
+    -webkit-animation-name: $animation-name;
+    -webkit-animation-duration: $animation-duration;
+    -webkit-animation-iteration-count: $animation-iteration-count;
+    -webkit-animation-timing-function: $animation-timing-function;
+    -moz-animation-name: $animation-name;
+    -moz-animation-duration: $animation-duration;
+    -moz-animation-iteration-count: $animation-iteration-count;
+    -moz-animation-timing-function: $animation-timing-function;
+    -ms-animation-name: $animation-name;
+    -ms-animation-duration: $animation-duration;
+    -ms-animation-iteration-count: $animation-iteration-count;
+    -ms-animation-timing-function: $animation-timing-function;
+  }
+
+  @-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+  }
+
+  @-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+  }
+
+  @-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  min-height: 93vh;
+}
+
+$sidenav-width: 260px;
+
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex: 0 0;
+  width: $sidenav-width;
+  height: 100vh;
+  overflow: auto;
+
+  .sidenav-header {
+    padding: 4px 0 18px;
+    margin-bottom: 8px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+
+    .sidenav-logo {
+      float: left;
+      padding: 18px 8px 8px;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    h2 {
+      padding: 0;
+      margin: 18px 0 0;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .cobalt-version {
+      display: inline-block;
+      padding: 6px;
+      margin-top: 10px;
+      margin-left: 48px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .last {
+    margin-bottom: 100px;
+  }
+}
+
+.sidenav-header h2 {
+  font-size: 21px;
+}
+
+.content-wrapper {
+  flex: 1 1;
+  min-width: 0;
+  margin-left: 26%;
+}
+
+.menu {
+  flex: 0.15;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.page-title {
+  width: 80%;
+  text-align: center;
+}
+
+.msi-common-header-button{
+  visibility: hidden !important;
+}

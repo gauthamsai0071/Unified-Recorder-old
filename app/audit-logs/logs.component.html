@@ -1,0 +1,126 @@
+<div class="msi-flex content mt-20">
+  <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>  
+    <div class="gridWidth">            
+    <div *ngIf="!showProgress">    
+      <div>      
+      <form [formGroup]="auditLogForm" (ngSubmit)="onSearchClick()" *ngIf="!showProgress && auditLogForm !== null">        
+        <div class="justify-space">        
+          <div class="container">
+              <div class="item">
+                <label class="mr-20">Actions</label><br>                
+                <ng-multiselect-dropdown
+                  class="multiselectDropdown"
+                  [placeholder]="'Select'"
+                  [data]="filterData.Actions"
+                  formControlName="Actions"
+                  [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+              </div>  
+              <div class="item">
+                <label class="mr-20">Classifications</label><br>                
+                <ng-multiselect-dropdown
+                class="multiselectDropdown"
+                  [placeholder]="'Select'"
+                  [data]="filterData.Sources"
+                  formControlName="Classifications"
+                  [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+              </div>  
+              <div class="item">
+                <label class="mr-20">Components</label><br>                
+                <ng-multiselect-dropdown
+                class="multiselectDropdown"
+                  [placeholder]="'Select'"
+                  [data]="filterData.ObjectTypes"
+                  formControlName="Components"
+                  [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+              </div>  
+              <div class="item">
+                <label class="mr-20">Dispathers</label><br>                
+                <ng-multiselect-dropdown
+                class="multiselectDropdown"
+                  [placeholder]="'Select'"
+                  [data]="filterData.Dispatchers"
+                  formControlName="Agencies"
+                  [settings]="dropdownSettings">
+                </ng-multiselect-dropdown>
+              </div>
+              </div>                            
+              <div class="container">
+              <div class="item">
+                <label class="mr-20">Details Text </label>                
+                  <msi-chips  class="chips" msiTooltip="Add Text"                                            
+                      formControlName="DetailsText">
+                  </msi-chips>                
+              </div>        
+              </div>
+              <div class="container">
+              <div>
+                <label class="mr-20">From Date</label><br>
+                <msi-date-picker-control 
+                dateFormat="MM/DD/YYYY" 
+                [dropdown]="true" 
+                formControlName="FromDate" 
+                [maxDate]="fromMaxDate"
+                [(ngModel)]="fromMinDate"
+                ></msi-date-picker-control>
+                <app-imw-time-picker class="pd-lt-5" formControlName="FromTime" ></app-imw-time-picker>                
+              </div>
+              <div>
+                <label class="mr-20">To Date</label><br>            
+                <msi-date-picker-control dateFormat="MM/DD/YYYY" 
+                [maxDate]="maxDate" 
+                [dropdown]="true" 
+                [(ngModel)]="fromMaxDate" 
+                [minDate]="fromMinDate"
+                formControlName="ToDate" ></msi-date-picker-control>                
+                <app-imw-time-picker  class="pd-lt-5" formControlName="ToTime" #ToTime ></app-imw-time-picker>
+              </div>              
+              <div class="btn-inner-section mar-top-10">          
+                <button type="submit" name="submit" class="msi-btn msi-btn-large submitbutton" >
+                  Search
+                </button>          
+                <button type="button" name="clear" class="msi-btn msi-btn-large floatRight" (click)="resetForm()" >
+                  Clear
+                </button>          
+              </div>
+        </div>
+      </div>      
+      </form>        
+    </div>   
+    <table msi-data-table  id="auditLogsGrid"      
+          [rows]="auditLogs | paginate: { id: 'pageEvents', itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalCount }"  class="mt-20" filterable="true"> 
+          <ng-container msiColDef="Date" colType="Date" >
+            <ng-container *msiHeaderCellDef><div>Date</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.LogDate | date:"M/d/yy h:mm:ss a" }}</ng-container>
+          </ng-container>
+          <ng-container msiColDef="Component" colType="text">
+            <ng-container *msiHeaderCellDef><div>Component</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Source}}</ng-container>
+          </ng-container>            
+          <ng-container msiColDef="ObjectType" colType="text" >
+            <ng-container *msiHeaderCellDef><div>Classification</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.ObjectType}}</ng-container>
+          </ng-container>   
+          <ng-container msiColDef="Action" colType="text">
+            <ng-container *msiHeaderCellDef><div>Action</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Action}}</ng-container>
+          </ng-container>   
+          <ng-container msiColDef="DispatcherName" colType="text">
+            <ng-container *msiHeaderCellDef ><div>Dispatcher Name</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.DispatcherName}}</ng-container>
+          </ng-container>   
+          <ng-container msiColDef="Group" colType="text">
+            <ng-container *msiHeaderCellDef><div>Group Name</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Group}}</ng-container>
+          </ng-container>   
+          <ng-container msiColDef="Message" colType="text" >
+            <ng-container *msiHeaderCellDef><div>Details</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Message}}</ng-container>
+          </ng-container>   
+      </table> 
+      <pagination-controls *ngIf="totalCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>     
+  </div>
+</div>
+</div>     

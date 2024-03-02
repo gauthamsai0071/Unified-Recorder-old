@@ -1,0 +1,137 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>      
+    <form [formGroup]="boundaryConditionForm" (ngSubmit)="save()" *ngIf="!showProgress && boundaryConditionForm !== null">
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Name</label>
+                <app-input-control [controlName]="'bcName'" [formResetting]="formResetting"
+                            [LabelText]="'Boundary condition name'">
+                    <input class="msi-input event-type input-control-app" type="text" id="bcName" formControlName="bcName" maxLength=200
+                        [class.error]="!formResetting && form.bcName.invalid">                        
+                </app-input-control>                
+            </div>
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Description</label>
+                <input class="msi-input input-control" type="text" id="Description" formControlName="Description" maxLength=400>
+            </div>            
+        </div>
+        <div class="content">
+            <div class="form-group mt-10">
+                <label>Group</label>
+                <app-input-control class="validation-input-control" [controlName]="'groupId'" [formResetting]="formResetting"
+                            [LabelText]="'Group'">
+                    <msi-select class="option-select" id="groupId" placeholder="Select value" formControlName="groupId" [class.error]="!formResetting && form.groupId.invalid">
+                        <msi-select-option *ngFor="let group of groups" [value]="group.Id">{{group.Name}}</msi-select-option>
+                    </msi-select>
+                </app-input-control>    
+            </div>                                   
+        </div>
+        <div class="content">
+            <div class="form-group mt-10">
+                <label>Threshold</label>
+                <app-input-control class="validation-input-control" [controlName]="'thresholdTypes'" [formResetting]="formResetting" 
+                            [LabelText]="'ThresholdType'">
+                <msi-select class="option-select" placeholder="Select value" id="thresholdTypes" formControlName="thresholdTypes"  [class.error]="!formResetting && form.thresholdTypes.invalid" (change)="onOptionSelected($event)">
+                    <msi-select-option *ngFor="let thresTypes of threshold" [value]="thresTypes.Id">{{thresTypes.Name}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+            </div>                                   
+        </div>
+        <div class="content">
+            <div class="form-group mt-10">
+                <label>Event Type</label>
+                <app-input-control class="validation-input-control" [controlName]="'eventType'" [formResetting]="formResetting"
+                            [LabelText]="'EventType'">
+                <msi-select class="option-select" placeholder="Select value" id="eventType" formControlName="eventType" [class.error]="!formResetting && form.eventType.invalid">
+                    <msi-select-option *ngFor="let event of eventTypes" [value]="event.Id">{{event.Name}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+            </div>                                   
+        </div>
+        <div class="content">
+            <div class="form-group mt-10">
+                <label>Severity</label>
+                <app-input-control class="validation-input-control" [controlName]="'severities'" [formResetting]="formResetting"
+                            [LabelText]="'Severity'">
+                    <msi-select class="option-select" placeholder="Select value" id="severities" formControlName="severities" [class.error]="!formResetting && form.severities.invalid">
+                        <msi-select-option *ngFor="let severity of severityLevels" [value]="severity.Id">{{severity.Name}}</msi-select-option>
+                    </msi-select>
+            </app-input-control>
+            </div>                                   
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Reraise Period</label>
+                <msi-checkbox-group>
+                    <msi-checkbox #chkReraisePeriod id="chkReraisePeriod" formControlName="chkReraisePeriod" (click)="isEnable()"></msi-checkbox>
+                </msi-checkbox-group>                
+                <app-imw-time-picker  class="pd-lt-5" formControlName="reraisePeriod" #reraisePeriod *ngIf="showReraise"></app-imw-time-picker>
+                <msi-checkbox-group  *ngIf="!showReraise">
+                    <msi-checkbox #chkAutoReset id="chkAutoReset" [checked]="false" formControlName="chkAutoReset" class="chk-height" [(ngModel)]="isAutoResetChecked">Auto Reset</msi-checkbox>
+                </msi-checkbox-group>
+            </div>                        
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Valid From</label>
+                <msi-date-picker-control dateFormat="MM/DD/YYYY"                
+                [dropdown]="true"                 
+                [minDate]="fromMinDate"                             
+                formControlName="validFrom" #validFrom></msi-date-picker-control> 
+            </div>
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Valid To</label>
+                <msi-date-picker-control dateFormat="MM/DD/YYYY"                 
+                [dropdown]="true"                
+                [minDate]="fromMinDate"                                               
+                formControlName="validTo" #validTo></msi-date-picker-control>                 
+            </div>
+        </div>
+        <div class="content mt-10" *ngIf="thresholdType === 2">
+            <div class="form-group mt-10" >
+                <label>Test Type</label>
+                <msi-select class="option-select-type" id="testType" formControlName="testType">
+                    <msi-select-option *ngFor="let test of speedTest" [value]="test.value">{{test.type}}</msi-select-option>
+                </msi-select>
+            </div>
+            <div class= "form-group mt-10">
+                <label>Minimum Speed</label>
+                <input class="msi-input input-control" type="text" id="minSpeed" formControlName="minSpeed" pattern="^\d+(\.\d{1,2})?$" title="Enter valid format like 00.00" placeholder="Enter valid format" (keydown)="validateNumber($event)">                                               
+            </div>
+            <div class= "form-group mt-10">
+                <label>Maximum Speed</label>                
+                <input class="msi-input input-control" type="text" id="maxSpeed" formControlName="maxSpeed" pattern="^\d+(\.\d{1,2})?$" title="Enter valid format like 00.00" placeholder="Enter valid format" (keydown)="validateNumber($event)">
+            </div>
+        </div>
+        <div class="content" *ngIf="thresholdType === 5">
+            <div class= "form-group mt-10" *ngIf="showReraise">
+                <label>Missing Update Time</label>
+                <app-imw-time-picker  class="pd-lt-5" formControlName="missingUpdateTime" #missingUpdateTime ></app-imw-time-picker>                
+            </div>
+        </div>
+        <div  class="content" *ngIf="thresholdType === 8">
+            <div class="form-group mt-10" >
+                <label>Priority Value</label>
+                <input class="msi-input input-control" type="text" id="priorityValue" formControlName="priorityValue"
+                pattern="^[0-9][0-9]*$" placeholder="Enter valid Id" (keydown)="validateNumber($event)">                
+            </div>
+            <div class="form-group mt-10" >
+                <label>Talk Group Id</label>                
+                <input class="msi-input input-control" #talkGroup type="text" id="talkGroup" formControlName="talkGroup"
+                pattern="^[0-9][0-9]*$" placeholder="Enter valid Id" (keydown)="validateNumber($event)">                
+            </div>
+            <div class="form-group mt-10">
+                <label>Message</label>                
+                <textarea #messageTemplate class="msi-textarea" id="messageTemplate" formControlName="messageTemplate" maxlength="200"></textarea>
+            </div>                                
+        </div> 
+        <div class="content mt-5 button-group ">
+            <button type="submit" class="msi-btn mt-20">Save</button> 
+            <button type="button" class="msi-btn mt-20 ml-10" [routerLink]="['/boundary-conditions']">Cancel</button>       
+        </div> 
+    </form>
+</div>

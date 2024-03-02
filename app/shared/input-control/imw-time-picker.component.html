@@ -1,0 +1,17 @@
+<div class="time-control" #wrapper>
+    <div class="input-wrapper time-input" [class.time-input--with-dropdown]="dropdown">
+      <input
+          class="msi-input"
+          placeholder="HH:MM:SS"
+          maxlength="8"
+          autocomplete="off"
+          [attr.id]="inputId"
+          [attr.disabled]="disabled || null"          
+          [(ngModel)]="timeTextModel"
+          (blur)="onBlur()"
+          (focus)="onFocus()"
+          [formControl]="timeControl"
+      >
+      <msi-icon name="ic_clock" [size]="18"></msi-icon>
+      </div>      
+</div>

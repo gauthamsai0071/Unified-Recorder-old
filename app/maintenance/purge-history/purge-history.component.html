@@ -1,0 +1,65 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>
+    <div class="gridWidth">
+        <div *ngIf="!showProgress">
+            <form [formGroup]="purgeHistoryForm" *ngIf="!showProgress && purgeHistoryForm !== null">
+                <div class="justify-space">
+                    <div class="container">
+                        <div class="item">                                 
+                            <msi-select class="option-select" placeholder="Select value" id="eventstatus" formControlName="eventstatus">
+                              <msi-select-option *ngFor="let event of eventPurge" [value]="event.value">{{event.type}}</msi-select-option>
+                            </msi-select>
+                        </div>  
+                        <div class="btn-inner-section">          
+                            <button type="submit" name="submit" class="msi-btn msi-btn-large submitbutton" (click)="getRecords()">
+                              Total Records
+                            </button> 
+                        </div> 
+                    </div>
+                    <div *ngIf="count > 0">
+                        <div>                          
+                          <table class="parametersTable" msi-table id="parametersGrid">
+                            <thead>
+                              <tr>
+                                <th msi-table-header>Total Records</th>
+                                <th msi-table-header>Oldest</th> 
+                                <th msi-table-header>Newest</th>                           
+                              </tr>
+                            </thead>      
+                            <tbody>
+                              <tr *ngFor="let row of purgeTotalRecords">
+                                <td>{{row.TotalRecords}}</td>
+                                <td>{{row.Oldest}}</td> 
+                                <td>{{row.Newest}}</td>                             
+                              </tr>                        
+                            </tbody>
+                          </table>          
+                        </div>
+                    </div>
+                    <div class="container mt-10">
+                        <div>
+                            <label class="mr-20">Purge Before Date</label><br>
+                            <app-input-control class="validation-input-control" [controlName]="'FromDate'" [formResetting]="formResetting"
+                            [LabelText]="'Purge before date'">
+                            <msi-date-picker-control 
+                            dateFormat="MM/DD/YYYY" 
+                            [dropdown]="true" 
+                            formControlName="FromDate"                             
+                            [maxDate]="fromMaxDate"
+                            [(ngModel)]="fromMinDate"
+                            [class.error]="!formResetting && form.FromDate.invalid"
+                            ></msi-date-picker-control>
+                            <app-imw-time-picker class="pd-lt-5" formControlName="FromTime" ></app-imw-time-picker> 
+                          </app-input-control>
+                        </div>
+                        <div class="btn-inner-section mar-top-10">          
+                            <button type="submit" name="submit" class="msi-btn msi-btn-large submitbutton" (click)="purgeRecords()">
+                                Purge Records
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

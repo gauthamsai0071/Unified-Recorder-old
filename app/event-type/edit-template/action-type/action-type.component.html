@@ -1,0 +1,93 @@
+<div class="msi-flex content mt-20" *ngIf="actionTypeForm !== null">      
+    <form [formGroup]="actionTypeForm">
+        <div class="content mt-10">
+            <div class= "form-group">
+                <label >Action Name</label>
+                <app-input-control [controlName]="'actionName'" [formResetting]="formResetting"
+                                [LabelText]="'Action Name'">
+                    <input class="msi-input input-control" type="text" id="actionName" formControlName="actionName">                                        
+                </app-input-control>
+            </div>
+        </div>
+        <div class="content" *ngIf="actionTypeName === 'Command Device'">
+            <div class= "form-group mt-10">
+                <label >Minimum Update Time</label>
+                <input class="msi-input input-control-app" type="text" id="minUpdate" formControlName="minUpdate">
+            </div>
+            <div class= "form-group mt-10">
+                <label >Maximum Update Time</label>
+                <input class="msi-input input-control-app" type="text" id="maxUpdate" formControlName="maxUpdate">
+            </div>
+            <div class= "form-group mt-10">
+                <label >Distance</label>
+                <input class="msi-input input-control-app" type="text" id="distance" formControlName="distance">
+            </div>
+            <div class= "form-group mt-10">
+                <label >Triggers</label>
+                <input class="msi-input input-control-app" type="text" id="triggers" formControlName="triggers">
+            </div>
+        </div>
+        <div class="content" *ngIf="actionTypeName === 'Call URL'">
+            <div class= "form-group mt-10">
+                <label >URL</label>
+                <input class="msi-input input-control-app" type="text" id="URL" formControlName="URL">
+            </div>
+        </div>
+        <div class="content" *ngIf="actionTypeName === 'Send SNMP trap'">
+            <div class= "form-group mt-10">
+                <label >Fault Description</label>
+                <input class="msi-input input-control-app" type="text" id="faultDescription" formControlName="faultDescription">
+            </div>            
+        </div>
+        <div class="content" *ngIf="actionTypeName === 'Launch an executable file'">
+            <div class= "form-group mt-10">
+                <label >Executable path</label>
+                <input class="msi-input input-control-app" type="text" id="executablePath" formControlName="executablePath">
+            </div>     
+        </div>
+        <div class="content" *ngIf="actionTypeName === 'Send Text Message'">
+            <div class= "form-group mt-10">
+                <label >Destination Address</label>
+                <msi-checkbox-group>
+                    <msi-checkbox #chkSendOrg id="chkSendOrg" formControlName="chkSendOrg" (click)="isEnable()">Send message to the event originator</msi-checkbox>
+                </msi-checkbox-group>
+            </div>
+            <div class="form-group mt-10">
+                <label >Device Name</label>
+                <input class="msi-input input-control-app" type="text" id="destinationAddress" formControlName="destinationAddress">
+            </div>            
+        </div>
+        <div  class="content" *ngIf="actionTypeName == 'Call MotoMapping' || actionTypeName == 'Call URL' || actionTypeName == 'Send SNMP trap' || actionTypeName == 'Launch an executable file' || actionTypeName == 'Send Text Message'">
+            <div class="form-group mt-10" >
+                <label >Text Parameters</label>
+                <msi-select class="option-select-param" id="textParameter" [formControl]="actionTypeForm.controls['textParameter']">
+                    <msi-select-option *ngFor="let parameter of parameters" [value]="parameter">{{parameter.type}}</msi-select-option>
+                </msi-select>
+                <button type="button" class="msi-btn add-btn" (click)="addParameter(messageTemplate)">Add</button>
+            </div>
+            <div class="form-group mt-10">
+                <label >Message Template</label>
+                <textarea #messageTemplate class="msi-textarea" id="messageTemplate" formControlName="messageTemplate"></textarea>
+            </div>                                
+        </div>
+        <div class=  "content" *ngIf="actionTypeName == 'Send SNMP trap'">
+            <div class="form-group mt-10">
+                <label >Alert Security</label>
+                <msi-select class="option-select" id="alertCode" [formControl]="actionTypeForm.controls['alertCode']">
+                    <msi-select-option *ngFor="let items of alertcodes" [value]="items">{{items.type}}</msi-select-option>
+                </msi-select>
+            </div>            
+        </div>
+        <div class="content" *ngIf="actionId > 0">
+            <div class="form-group mt-10">
+                <label >Group</label>
+                <msi-select class="option-select" id="groupId" placeholder="Select value" formControlName="groupId">
+                    <msi-select-option *ngFor="let group of groups" [value]="group.Id">{{group.Name}}</msi-select-option>
+                </msi-select>
+            </div>                                   
+        </div>
+        <div class="content mt-5 button-group ">
+            <button type="submit" class="msi-btn mt-20" (click)="save()">Save</button>        
+        </div> 
+    </form>
+</div>

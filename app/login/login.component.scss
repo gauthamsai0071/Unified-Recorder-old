@@ -1,0 +1,80 @@
+@import '../../../node_modules/@msi/cobalt/assets/styles/colors.scss';
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .msi-card {
+    margin-top: 12%;
+    min-width: 330px;
+    max-width: 350px;
+    background-color: #1e3b52;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .msi-card-title {
+    padding: 8px 12px;
+    margin-bottom: 12px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+
+    span {
+      margin-left: 6px;
+    }
+  }
+
+  .checkbox-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: -12px;
+  }
+
+  .link-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 6px 0;
+  }
+
+  a {
+    margin-bottom: 5px;
+    text-decoration: none;
+  }
+
+  .notice {
+    position: relative;
+    padding-top: 12px;
+
+    span {
+      font-weight: bold;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: -12px;
+      left: -12px;
+      height: 1px;
+      content: '';
+    }
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    button:first-of-type {
+      margin-right: 5px;
+    }
+  }
+}

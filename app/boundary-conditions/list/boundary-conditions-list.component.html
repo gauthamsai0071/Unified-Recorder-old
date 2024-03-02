@@ -1,0 +1,135 @@
+<div class="msi-flex content mt-20">   
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>    
+    <div class="gridWidth">        
+        <div *ngIf="!showProgress">
+            <div>        
+                <form [formGroup]="boundaryConditionForm" (ngSubmit)="onSearchClick()"  *ngIf="!showProgress && boundaryConditionForm !== null">        
+                  <div class="justify-space">
+                    <div class="container">
+                        <div class="item">
+                            <label class="mr-20">Threshold Type</label><br>                
+                            <ng-multiselect-dropdown
+                            [settings]="dropdownSettings"
+                            class="multiselectDropdown"
+                            [placeholder]="'Select'"
+                            [data]="filterThresholdTypes"
+                            formControlName="thresholdTypes"
+                            >
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="item">
+                            <label class="mr-20">Event Type</label><br>                
+                            <ng-multiselect-dropdown
+                            [settings]="dropdownSettings"
+                            class="multiselectDropdown"
+                            [placeholder]="'Select'"
+                            [data]="filterEventTypes"
+                            formControlName="eventTypes">
+                            </ng-multiselect-dropdown>
+                        </div> 
+                        <div class="item">
+                            <label class="mr-20">Severities</label><br>                
+                            <ng-multiselect-dropdown
+                            [settings]="dropdownSettings"
+                            class="multiselectDropdown"
+                            [placeholder]="'Select'"
+                            [data]="filterSeverities"
+                            formControlName="severities">
+                            </ng-multiselect-dropdown>
+                        </div>                                          
+                    </div>
+                    <div class="container">
+                        <div class="item">
+                            <label class="mr-20">Name</label>
+                            <msi-chips  class="chips" #tooltip="msiTooltip" msiTooltip="Add text"                                            
+                                formControlName="bcName">
+                            </msi-chips>                
+                            <!-- <input class="msi-input input-control" type="text" id="bcName" formControlName="bcName"> -->
+                        </div> 
+                        <div class="btn-inner-section mar-top-10 mt-20">          
+                            <button type="submit" name="submit" class="msi-btn msi-btn-large submitbutton" (click)="[tooltip.hide()]">
+                              Search
+                            </button>          
+                            <button type="button" name="clear" class="msi-btn msi-btn-large floatRight" (click)="resetForm()" >
+                              Clear
+                            </button>          
+                          </div>
+                    </div>
+                  </div>  
+                </form>        
+            </div>
+            <div class="button-group">
+                <button type="submit" class="msi-btn mt-20" [routerLink]="['../add']">
+                Add New Boundary Conditions</button>
+            </div>
+            <div class="tableWidth">
+                <table msi-data-table  id="boundaryConditionsGrid"      
+                        [rows]="boundaryConditionList"  class="mt-20"> 
+                        <ng-container msiColDef="Name" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Name</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.Name}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="Description" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Description</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.Description}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="GroupName" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Group</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.GroupName}}</ng-container>
+                        </ng-container> 
+
+                        <ng-container msiColDef="ThresholdType" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Threshold</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ThresholdType}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="EventType" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Event Type</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.EventType}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="Severity" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Severity</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.Severity}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="ReraisePeriod" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Reraise Period</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ReraiseOverride}}</ng-container>
+                        </ng-container>
+
+                        <ng-container msiColDef="ValidFrom" colType="text">
+                            <ng-container *msiHeaderCellDef><div>ValidFrom</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ValidFrom}}</ng-container>
+                        </ng-container>
+                        
+                        <ng-container msiColDef="ValidTo" colType="text">
+                            <ng-container *msiHeaderCellDef><div>Valid To</div></ng-container>
+                            <ng-container *msiCellDef="let row" class="textColWidth">{{row.ValidTo}}</ng-container>
+                        </ng-container>
+                        <ng-container msiColDef="icon" colType="icon">
+                            <ng-container *msiHeaderCellDef></ng-container>
+                            <ng-container *msiCellDef="let row" class="imgColWidth">
+                                <msi-icon name="ic_file" class="msi-btn-icon--active" #tooltip="msiTooltip" msiTooltip="Attributes" (click)="tooltip.hide()"
+                                [routerLink]="['../attributes', row.Id]"></msi-icon>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container msiColDef="icon" colType="icon">
+                            <ng-container *msiHeaderCellDef></ng-container>
+                            <ng-container *msiCellDef="let row" class="imgColWidth">
+                                <msi-icon name="ic_edit" class="msi-btn-icon--active" #tooltip="msiTooltip" msiTooltip="Edit" (click)="tooltip.hide()"  [routerLink]="['../manage', row.Id]"></msi-icon>
+                            </ng-container>
+                        </ng-container>                          
+                        <ng-container msiColDef="icon" colType="icon">
+                            <ng-container *msiHeaderCellDef></ng-container>
+                            <ng-container *msiCellDef="let row" >
+                                <msi-icon name="ic_remove" class="msi-btn-icon-remove" #tooltip="msiTooltip" msiTooltip="Delete" (click)="[tooltip.hide(), removeBoundaryCondition(row.Id)]"></msi-icon>
+                            </ng-container>
+                        </ng-container>
+                </table>  
+            </div>
+        </div> 
+    </div>   
+  </div>

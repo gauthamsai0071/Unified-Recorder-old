@@ -1,0 +1,12 @@
+::ng-deep .msi-item-wrapper:not(.disabled):not(.msi-item-title):focus {
+    background-clip: unset !important;
+}
+
+::ng-deep .msi-collapsable > div, .sub-menu-item > div {
+    background-color: #224c6d;
+}
+
+.navigation-menu {
+    max-width: 17%;
+    height: 100%;
+}

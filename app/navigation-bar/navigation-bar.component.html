@@ -1,0 +1,39 @@
+<div class="navigation-menu">
+  <msi-sidenav role="navigation">
+    <msi-item [selected]="true" [collapsable]="true" [isCollapsed]="true">
+      <div class="item-content">
+        Devices            
+      </div>
+      <msi-item class="sub-menu-item" [routerLink]="['/devices/location']">Location</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/devices/telemetry']">Telemetry</msi-item>
+    </msi-item>
+    <msi-item [selected]="true" [collapsable]="true" [isCollapsed]="true">
+      <div class="item-content">
+        Boundary Service            
+      </div>
+      <msi-item class="sub-menu-item" [routerLink]="['/boundary-conditions/list']">Conditions</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/validity-periods/list']">Validity Periods</msi-item>
+    </msi-item>
+    <msi-item [selected]="true" [collapsable]="true" [isCollapsed]="true">
+      <div class="item-content">
+        Event Service            
+      </div>
+      <msi-item class="sub-menu-item" [routerLink]="['/event-log/list']">Event Log</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/severity/list']">Severities</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/event-types/list']">Event Type</msi-item> 
+    </msi-item>
+    <msi-item [selected]="true" [collapsable]="true" [isCollapsed]="true">
+      <div class="item-content">
+        Maintenance            
+      </div>
+      <msi-item class="sub-menu-item" [routerLink]="['/maintenance/throttling-configuration']">Throttling Config</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/maintenance/purge-history']">Purge History</msi-item>
+      <msi-item class="sub-menu-item" [routerLink]="['/maintenance/purge-deleteditems']">Purge Deleted Items</msi-item> 
+    </msi-item>
+    <msi-item [selected]="true" [routerLink]="['/auditlogs/list']" >
+      <div class="item-content">
+        Audit Logs
+      </div>      
+    </msi-item>
+  </msi-sidenav>
+</div>

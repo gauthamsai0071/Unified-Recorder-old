@@ -1,0 +1,62 @@
+<div class="msi-flex content mt-20">
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>
+    <form [formGroup]="validityPeriodForm" (ngSubmit)="save()" *ngIf="!showProgress && validityPeriodForm !== null">
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Name</label>
+                <app-input-control [controlName]="'vpName'" [formResetting]="formResetting"
+                            [LabelText]="'Validity Period Name'">
+                    <input class="msi-input event-type input-control-app" type="text" id="vpName" formControlName="vpName" maxlength="200"
+                        [class.error]="!formResetting && form.vpName.invalid">
+                </app-input-control>
+            </div>
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Description</label>
+                <input class="msi-input input-control" type="text" id="Description" formControlName="Description" maxlength="400">
+            </div>
+        </div>
+        <div class="content">
+            <div class="form-group mt-10">
+                <label>Group</label>                
+                <app-input-control class="validation-input-control" [controlName]="'groupId'" [formResetting]="formResetting"
+                            [LabelText]="'Group'">
+                            <msi-select class="option-select" id="groupId" placeholder="Select value" formControlName="groupId" [class.error]="!formResetting && form.groupId.invalid">
+                                <msi-select-option *ngFor="let group of groups" [value]="group.Id">{{group.Name}}</msi-select-option>
+                            </msi-select>
+            </app-input-control>
+            </div>                                   
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Valid From</label>                
+                <msi-time-picker-control [dropdown]="false" id="validFrom" formControlName="validFrom" ></msi-time-picker-control>
+            </div>
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Valid To</label>                
+                <msi-time-picker-control [dropdown]="false" id="validTo" formControlName="validTo" ></msi-time-picker-control>                
+            </div>
+        </div>
+        <div class="content">
+            <div class= "form-group mt-10">
+                <label>Days</label>
+                <msi-checkbox-group>
+                    <msi-checkbox #chkMon [checked]="false" id="chkMon" formControlName="chkMon">Monday</msi-checkbox>
+                    <msi-checkbox #chkTue [checked]="false" id="chkTue" formControlName="chkTue">Tuesday</msi-checkbox>
+                    <msi-checkbox #chkWed [checked]="false" id="chkWed" formControlName="chkWed">Wednesday</msi-checkbox>
+                    <msi-checkbox #chkThu [checked]="false" id="chkThu" formControlName="chkThu">Thursday</msi-checkbox>
+                    <msi-checkbox #chkFri [checked]="false" id="chkFri" formControlName="chkFri">Friday</msi-checkbox>
+                    <msi-checkbox #chkSat [checked]="false" id="chkSat" formControlName="chkSat">Saturday</msi-checkbox>
+                    <msi-checkbox #chkSun [checked]="false" id="chkSun" formControlName="chkSun">Sunday</msi-checkbox>
+                </msi-checkbox-group>                
+            </div>                        
+        </div>
+        <div class="content mt-5 button-group ">
+            <button type="submit" class="msi-btn mt-20">Save</button> 
+            <button type="button" class="msi-btn mt-20 ml-10" [routerLink]="['/validity-periods']">Cancel</button>       
+        </div> 
+    </form>
+</div>

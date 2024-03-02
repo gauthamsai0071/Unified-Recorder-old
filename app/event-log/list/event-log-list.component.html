@@ -1,0 +1,141 @@
+<div class="msi-flex content mt-20">       
+  <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner>
+  <div class="gridWidth">
+    <div *ngIf="!showProgress">
+      <div>
+        <form [formGroup]="eventLogForm" (ngSubmit)="onSearchClick()">
+          <div class="justify-space">
+            <div class="container">
+              <div class="item">
+                <label class="mr-20">Originator</label><br>                
+                <input class="msi-input input-control" type="text" id="txtOriginator" formControlName="txtOriginator">                                
+              </div>
+              <div class="item">
+                <label class="mr-20">Event Type</label><br>                
+                <msi-select class="option-select" placeholder="Select value" id="eventType" formControlName="eventType">
+                  <msi-select-option *ngFor="let event of eventTypes" [value]="event">{{event.Name}}</msi-select-option>
+                </msi-select>                
+              </div>
+              <div class="item">
+                <label class="mr-20">Severity</label><br>               
+                <msi-select class="option-select" placeholder="Select value" id="severities" formControlName="severities">
+                  <msi-select-option *ngFor="let severity of severityLevels" [value]="severity">{{severity.Name}}</msi-select-option>
+                </msi-select>
+              </div>
+              <div class="item">
+                <label class="mr-20">Acknowledgement Status</label><br>
+                <msi-select class="option-select" placeholder="Select value" id="acknowledgementStatus" formControlName="acknowledgementStatus">
+                  <msi-select-option *ngFor="let ack of filterData" [value]="ack">{{ack.type}}</msi-select-option>
+                </msi-select>                                                
+              </div>
+            </div>
+            <div class="container mt-10">
+              <div>
+                <label class="mr-20">From Date</label><br>
+                <msi-date-picker-control 
+                dateFormat="MM/DD/YYYY" 
+                [dropdown]="true" 
+                formControlName="FromDate" 
+                [maxDate]="fromMaxDate"
+                [(ngModel)]="fromMinDate"
+                ></msi-date-picker-control>&nbsp;
+                <app-imw-time-picker formControlName="FromTime" ></app-imw-time-picker> 
+              </div>
+              <div>
+                <label class="mr-20">To Date</label><br>            
+                <msi-date-picker-control dateFormat="MM/DD/YYYY" 
+                [maxDate]="maxDate" 
+                [dropdown]="true" 
+                [(ngModel)]="fromMaxDate" 
+                [minDate]="fromMinDate"
+                formControlName="ToDate" ></msi-date-picker-control>&nbsp;                
+                <app-imw-time-picker formControlName="ToTime" #ToTime ></app-imw-time-picker>
+              </div>
+              <div class="btn-inner-section mar-top-10">          
+                <button type="submit" name="submit" class="msi-btn msi-btn-large submitbutton" >
+                  Search
+                </button>          
+                <button type="button" name="clear" class="msi-btn msi-btn-large floatRight" (click)="resetForm()" >
+                  Clear
+                </button>          
+              </div>
+            </div>
+          </div>
+          <msi-checkbox-group>
+            <msi-checkbox #chkAutoRefresh id="chkAutoRefresh" formControlName="chkAutoRefresh" [checked]="false" (click)="isEnable()">Auto Refresh</msi-checkbox>
+          </msi-checkbox-group>
+        </form>
+      </div>
+      
+      <table msi-data-table  id="eventLogGrid"   *ngIf="eventLogList.length > 0"   
+          [rows]="eventLogList | paginate: { id: 'pageEvents', itemsPerPage: 10, currentPage: logEventFilter.PageNumber, totalItems: rowCount }"  class="mt-20">
+          <ng-container msiColDef="Id" colType="text">
+            <ng-container *msiHeaderCellDef><div>Id</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Id}}</ng-container>
+          </ng-container>
+          <ng-container msiColDef="Originator" colType="text">
+            <ng-container *msiHeaderCellDef><div>Originator</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Originator}}</ng-container>
+          </ng-container>            
+          <ng-container msiColDef="EventType" colType="text" >
+            <ng-container *msiHeaderCellDef><div>Event Type</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.EventType}}</ng-container>
+          </ng-container>   
+          <ng-container msiColDef="Severities" colType="text">
+            <ng-container *msiHeaderCellDef><div>Severity</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.Severity}}</ng-container>
+          </ng-container> 
+          <ng-container msiColDef="OccurrenceTime" colType="Date" >
+            <ng-container *msiHeaderCellDef><div>Occurrence Time</div></ng-container>
+            <ng-container *msiCellDef="let row"  class="textColWidth" >{{row.OccurrenceTime | date:"M/d/yy h:mm:ss a" }}</ng-container>
+          </ng-container>
+          <ng-container msiColDef="icon" colType="icon">
+            <ng-container *msiHeaderCellDef></ng-container>
+            <ng-container *msiCellDef="let row" class="imgColWidth">              
+              <msi-icon name="ic_cards_all" class="msi-btn-icon-details" msiTooltip="Parameters" (click)="getEventParamters(row.Id)"></msi-icon>              
+            </ng-container>
+          </ng-container>
+          <ng-container msiColDef="icon" colType="icon" >
+            <ng-container *msiHeaderCellDef></ng-container>
+            <ng-container *msiCellDef="let row" >              
+                <msi-icon name="ic_status_available" class="msi-btn-icon-status" msiTooltip="Acknowledge" *ngIf="row.IsAcknowledge == 'false'" (click)="acknowledgeEventLog(row.Id)"></msi-icon>
+                <msi-icon name="ic_favorite_on" class="msi-btn-icon-ack" msiTooltip="Acknowledged" *ngIf="row.IsAcknowledge == 'true'"></msi-icon>              
+            </ng-container>
+          </ng-container>
+          <ng-container msiColDef="icon" colType="icon">
+            <ng-container *msiHeaderCellDef></ng-container>
+            <ng-container *msiCellDef="let row" >
+              <msi-icon name="ic_remove" class="msi-btn-icon-remove" msiTooltip="Delete" (click)="removeEventLog(row.Id)"></msi-icon>              
+            </ng-container>
+          </ng-container> 
+      </table>
+      <pagination-controls *ngIf="rowCount > 0" (pageChange)="getPage($event)" id="pageEvents"></pagination-controls>
+
+      <div *ngIf="showParameters">
+        <div>
+          <label class="mr-20">Event Parameters</label><br>
+          <table class="parametersTable" msi-table id="parametersGrid">
+            <thead>
+              <tr>
+                <th msi-table-header>Name</th>
+                <th msi-table-header>Value</th>                            
+              </tr>
+            </thead>      
+            <tbody>
+              <tr *ngFor="let row of eventLogParameters">
+                <td>{{row.ParamName}}</td>
+                <td>{{row.ParamValue}}</td>                             
+              </tr>                        
+            </tbody>
+          </table>          
+        </div>
+        <div class="btn-inner-section mar-top-10">
+          <button type="button" name="Close" class="msi-btn msi-btn-large floatRight" (click)="showParameters= false" >
+            Close
+          </button>          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

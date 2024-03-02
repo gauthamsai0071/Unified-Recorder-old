@@ -1,0 +1,26 @@
+<div class="msi-flex content mt-20">       
+    <msi-spinner size="large" class="spinner" *ngIf="showProgress"></msi-spinner> 
+    <form [formGroup]="eventTypeForm" (ngSubmit)="save()" *ngIf="!showProgress && eventTypeForm !== null">
+        <div class= "form-group">
+            <label class="mr-20">Event Type</label>
+            <app-input-control [controlName]="'eventType'" [formResetting]="formResetting"
+                            [LabelText]="'Event Type'">
+                <input class="msi-input event-type input-control" type="text" id="eventType" formControlName="eventType"
+                    [class.error]="!formResetting && form.eventType.invalid">
+            </app-input-control>
+        </div>
+        <div class= "form-group  mt-10">
+            <label class="mr-20 mt-10">Group</label>
+            <app-input-control [controlName]="'groupId'" [formResetting]="formResetting"
+                        [LabelText]="'Group'">
+                <msi-select class="event-type group-select input-control" id="groupId" placeholder="Select value" formControlName="groupId" [class.error]="!formResetting && form.groupId.invalid">
+                    <msi-select-option *ngFor="let group of groups" [value]="group.Id">{{group.Name}}</msi-select-option>
+                </msi-select>
+            </app-input-control>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="msi-btn mt-20">Save</button>
+            <button type="button" class="msi-btn mt-20 ml-10" [routerLink]="['/event-types']">Cancel</button>
+        </div>        
+    </form>        
+</div>
